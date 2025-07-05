@@ -25,6 +25,12 @@
                 </a>
             </li><!-- End Search Icon-->
 
+            <?php if (session()->has('diskon_nominal')): ?>
+                 <div class="w-10 text-center alert alert-success mb-0 py-1">
+                    <strong>Hari Ini Diskon All Item Sebesar: Rp<?= number_format(session('diskon_nominal'), 0, ',', '.') ?></strong>
+                </div>
+            <?php endif; ?>
+
             <li class="nav-item dropdown">
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -175,8 +181,9 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>Web Designer</span>
+                        <h6><?= session()->get('username'); ?></h6>
+                        
+                        <span><?= session()->get('role'); ?></span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

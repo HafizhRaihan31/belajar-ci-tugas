@@ -14,6 +14,9 @@ Proyek ini adalah platform toko online yang dibangun menggunakan [CodeIgniter 4]
 - Katalog Produk
   - Tampilan produk dengan gambar
   - Pencarian produk
+- Manajemen Diskon
+  - Menentukan diskon pada hari tertentu
+  - CRUD Diskon
 - Keranjang Belanja
   - Tambah/hapus produk
   - Update jumlah produk
@@ -64,6 +67,9 @@ Proyek ini adalah platform toko online yang dibangun menggunakan [CodeIgniter 4]
    ```bash
    php spark db:seed UserSeeder
    ```
+      ```bash
+   php spark db:seed DiskonSeeder
+   ```
 6. **Jalankan server**
    ```bash
    php spark serve
@@ -79,11 +85,15 @@ Proyek menggunakan struktur MVC CodeIgniter 4:
   - AuthController.php - Autentikasi pengguna
   - ProdukController.php - Manajemen produk
   - TransaksiController.php - Proses transaksi
+  - DiskonController.php - Proses Diskon
 - app/Models - Model untuk interaksi database
   - ProductModel.php - Model produk
   - UserModel.php - Model pengguna
+  - DiskonModel.php - Model Diskon
 - app/Views - Template dan komponen UI
   - v_produk.php - Tampilan produk
   - v_keranjang.php - Halaman keranjang
+  - v_diskon.php - Manajemen Diskon (Hanya Admin)
 - public/img - Gambar produk dan aset
+- public/dashboard-toko/index.php - Dashboard toko sederhana
 - public/NiceAdmin - Template admin

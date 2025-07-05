@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\UserModel;
-
+use App\Models\DiskonModel;
 class AuthController extends BaseController
 {
     protected $user;
@@ -28,8 +28,9 @@ class AuthController extends BaseController
         if ($this->validate($rules)) {
             $username = $this->request->getVar('username');
             $password = $this->request->getVar('password');
-
             $dataUser = $this->user->where(['username' => $username])->first(); //pasw 1234567
+            $diskonModel = new DiskonModel();
+            $diskonHariIni = $diskonModel->where('tanggal', date('Y-m-d'))->first();
 
             if ($dataUser) {
                 if (password_verify($password, $dataUser['password'])) {
@@ -38,6 +39,10 @@ class AuthController extends BaseController
                         'role' => $dataUser['role'],
                         'isLoggedIn' => TRUE
                     ]);
+
+                    if ($diskonHariIni) {
+                        session()->set('diskon_nominal', $diskonHariIni['nominal']);
+                    }
 
                     return redirect()->to(base_url('/'));
                 } else {

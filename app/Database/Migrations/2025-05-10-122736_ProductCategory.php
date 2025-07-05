@@ -8,28 +8,39 @@ class ProductCategory extends Migration
 {
     public function up()
     {
-        $this->forge->addField([
-            'id'          => [
-                'type'           => 'INT',
-                'constraint' => 11,
-                'unsigned'       => true,
-                'auto_increment' => true,
-            ],
-            'nama'        => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null' => FALSE,
-            ],
-            
-            'created_at DATETIME DEFAULT CURRENT_TIMESTAMP',
-            'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-        ]);
-        $this->forge->addKey('id', true);
-        $this->forge->createTable('product_category');
+        // Cek apakah tabel sudah ada
+        if (! $this->db->tableExists('product_category')) {
+            $this->forge->addField([
+                'id' => [
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => true,
+                    'auto_increment' => true,
+                ],
+                'nama' => [
+                    'type' => 'VARCHAR',
+                    'constraint' => 100,
+                    'null' => false,
+                ],
+                'created_at' => [
+                    'type' => 'DATETIME',
+                    'null' => true,
+                    'default' => null,
+                ],
+                'updated_at' => [
+                    'type' => 'DATETIME',
+                    'null' => true,
+                    'default' => null,
+                ],
+            ]);
+
+            $this->forge->addKey('id', true);
+            $this->forge->createTable('product_category');
+        }
     }
 
     public function down()
     {
-        $this->forge->dropTable('product_category');
+        $this->forge->dropTable('product_category', true);
     }
 }
